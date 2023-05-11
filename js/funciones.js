@@ -90,8 +90,7 @@ function valNombres(objeto) {
             flag = true;
           }  
     }
-    return flag;
-    
+    return flag;   
 }
 
 //Validar código de celular
@@ -120,24 +119,33 @@ function valCodigo(objeto){
 function valCelular(objeto){
     let mTelefono = document.getElementById("mTelefono");
     let flag = true;
-    if(objeto.value.toString().length < 9){
-        mTelefono.innerHTML = "El número de celular debe tener 9 dígitos";
+
+    if(valNumero(objeto.value) == false){
+        mTelefono.innerHTML = "Solo debe contener n&uacute;meros";
         mTelefono.classList.remove("text-success");
         mTelefono.classList.add("text-danger");
         flag = false;
     }
-    else if(objeto.value.toString().length == 9){
-        mTelefono.innerHTML = "Correcto &#10003;";
-        mTelefono.classList.remove("text-danger");
-        mTelefono.classList.add("text-success");
-        flag = true;
-    }
-    else {
-        mTelefono.innerHTML = "El número de celular supera los 9 dígitos";
-        mTelefono.classList.remove("text-success");
-        mTelefono.classList.add("text-danger");
-        flag = false;
-    }
+    else{
+        if(objeto.value.toString().length < 9){
+            mTelefono.innerHTML = "El n&uacute;mero de celular debe tener 9 d&iacute;gitos";
+            mTelefono.classList.remove("text-success");
+            mTelefono.classList.add("text-danger");
+            flag = false;
+        }
+        else if(objeto.value.toString().length == 9){
+            mTelefono.innerHTML = "Correcto &#10003;";
+            mTelefono.classList.remove("text-danger");
+            mTelefono.classList.add("text-success");
+            flag = true;
+        }
+        else {
+            mTelefono.innerHTML = "El n&uacute;mero de celular supera los 9 d&iacute;gitos";
+            mTelefono.classList.remove("text-success");
+            mTelefono.classList.add("text-danger");
+            flag = false;
+        }
+    } 
     return flag;
 }
 
@@ -239,7 +247,7 @@ function valComuna(objeto){
 
 //Validar números
 function valNumero(dato) {
-    return /^\d+$/.test(dato);
+    return /^[0-9]+$/.test(dato);
 }
 
 //Validar letras
