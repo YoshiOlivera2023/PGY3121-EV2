@@ -11,7 +11,7 @@ function validarRut(objeto) {
     }
     else{
         if (objeto.value.length < 7) {
-            mRut.innerHTML = "El rut debe contener entre 7 y 8 digitos";
+            mRut.innerHTML = "El rut debe contener entre 7 y 8 d&iacute;gitos";
             mRut.classList.remove("text-success");
             mRut.classList.add("text-danger");
             flag = false;
@@ -23,7 +23,7 @@ function validarRut(objeto) {
             flag = true;
         }
         else{
-            mRut.innerHTML = "El rut debe contener entre 7 y 8 digitos";
+            mRut.innerHTML = "El rut debe contener entre 7 y 8 d&iacute;gitos";
             mRut.classList.remove("text-success");
             mRut.classList.add("text-danger");
             flag = false;
@@ -83,12 +83,13 @@ function valNombres(objeto) {
             document.getElementById("m"+idDiv).classList.remove("text-success");
             document.getElementById("m"+idDiv).classList.add("text-danger");
             flag = false;
-          } else {                       
+        } 
+        else {                       
             document.getElementById("m"+idDiv).innerHTML = "Correcto &#10003;";
             document.getElementById("m"+idDiv).classList.remove("text-danger");
             document.getElementById("m"+idDiv).classList.add("text-success");
             flag = true;
-          }  
+        }  
     }
     return flag;   
 }
@@ -303,4 +304,68 @@ function enviarRegistro(){
             document.getElementById("mensaje").classList.add("cuadroError");
         }
     });
+}
+
+//Validar Número de seguimiento
+function valSeguimiento(objeto) {
+    let mSeg = document.getElementById("mSeguimiento");
+    let flag = true;
+
+    if(objeto.value == ""){
+        mSeg.innerHTML = "";
+        mSeg.classList.remove("text-success");
+        mSeg.classList.remove("text-danger");
+        flag = false;
+    }
+    else if(valNumero(objeto.value) == false){
+        mSeg.innerHTML = "El n&uacute;mero de seguimiento no debe contener letras ni signos";
+        mSeg.classList.remove("text-success");
+        mSeg.classList.add("text-danger");
+        flag = false;
+    }
+    else{
+        if (objeto.value.length < 12) {
+            mSeg.innerHTML = "El n&uacute;mero de seguimiento debe contener 12 d&iacute;gitos";
+            mSeg.classList.remove("text-success");
+            mSeg.classList.add("text-danger");
+            flag = false;
+        } 
+        else if (objeto.value.length == 12) {
+            mSeg.innerHTML = "Correcto &#10003;";
+            mSeg.classList.remove("text-danger");
+            mSeg.classList.add("text-success");
+            flag = true;
+        }
+        else{
+            mSeg.innerHTML = "El n&uacute;mero de seguimiento debe contener 12 d&iacute;gitos";
+            mSeg.classList.remove("text-success");
+            mSeg.classList.add("text-danger");
+            flag = false;
+        }
+    }
+    return flag;
+}
+
+//Realizar busqueda
+function realizarSeg(){
+    document.getElementById("buscar").addEventListener("click", function agregarEvento(event){
+
+        event.preventDefault();
+
+        let busqueda = valSeguimiento(document.getElementById("NroSeguimiento"));
+
+        if(busqueda == true){
+
+            document.getElementById("mBusqueda").innerHTML = "Buscando...";
+            document.getElementById("mBusqueda").classList.remove("cuadroError");
+            document.getElementById("mBusqueda").classList.add("cuadroExito");
+
+            document.getElementById("mBusqueda").removeEventListener("click", agregarEvento);
+        }
+        else{
+            document.getElementById("mBusqueda").innerHTML = "Revise su n&uacute.mero de seguimiento ingresado.";
+            document.getElementById("mBusqueda").classList.remove("cuadroExito");
+            document.getElementById("mBusqueda").classList.add("cuadroError");
+        }
+    })
 }
