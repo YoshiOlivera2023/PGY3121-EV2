@@ -4,12 +4,15 @@ $(document).ready(function(onclick){
     let user = $("#usuario").val();
     let pass =$("#password").val();
 
-    if(user==""|| pass==""){
-    alert("Debe completar este campo") ;
-    return false
+    if(user==""|| pass=="")
+    {
+        $("#error").html(' • Debe completar usuario y password.');
+        $("#error").addClass('cuadroError');
+        return false
     }
-    else{
-        window.location.href="index.html"
+    else
+    {
+        $('#formulario').attr('action', 'index.html');
     }
 });
 
