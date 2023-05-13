@@ -363,7 +363,7 @@ function realizarSeg(){
             document.getElementById("mBusqueda").removeEventListener("click", agregarEvento);
         }
         else{
-            document.getElementById("mBusqueda").innerHTML = "Revise su n&uacute.mero de seguimiento ingresado.";
+            document.getElementById("mBusqueda").innerHTML = "Revise su n&uacute;mero de seguimiento ingresado.";
             document.getElementById("mBusqueda").classList.remove("cuadroExito");
             document.getElementById("mBusqueda").classList.add("cuadroError");
         }
