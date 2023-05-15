@@ -246,6 +246,75 @@ function valComuna(objeto){
     return flag;
 }
 
+//Alojar funciones de validación y verificación
+function validacion(objeto){
+    valClave(objeto);
+    verificar();
+}
+
+// Validar contraseña y confirmación
+function valClave(objeto) {
+    let idDiv = objeto.id.charAt(0).toUpperCase() + objeto.id.slice(1);
+
+    if (objeto.value.length < 8) {
+        document.getElementById("m"+idDiv).innerHTML = "La contrase&ntilde;a debe tener al menos 8 caracteres";
+        document.getElementById("m"+idDiv).classList.remove("text-success");
+        document.getElementById("m"+idDiv).classList.add("text-danger");
+    } 
+    else if (!/[a-zA-Z]/.test(objeto.value)) {
+        console.log(objeto.value);
+        document.getElementById("m"+idDiv).innerHTML = "La contrase&ntilde;a debe tener al menos una letra";
+        document.getElementById("m"+idDiv).classList.remove("text-success");
+        document.getElementById("m"+idDiv).classList.add("text-danger");
+    }
+    else if (!/(?=.*\d)/.test(objeto.value)) {
+        document.getElementById("m"+idDiv).innerHTML = "La contrase&ntilde;a debe tener al menos un n&uacute;mero";
+        document.getElementById("m"+idDiv).classList.remove("text-success");
+        document.getElementById("m"+idDiv).classList.add("text-danger");
+    }
+    else if (!/(?=.*[@$!%*?&.])/.test(objeto.value)) {
+        document.getElementById("m"+idDiv).innerHTML = "La contrase&ntilde;a debe tener al menos un s&iacute;mbolo especial: @$!%*?&.";
+        document.getElementById("m"+idDiv).classList.remove("text-success");
+        document.getElementById("m"+idDiv).classList.add("text-danger");
+    }
+    else {                       
+        document.getElementById("m"+idDiv).innerHTML = "Correcto &#10003;";
+        document.getElementById("m"+idDiv).classList.remove("text-danger");
+        document.getElementById("m"+idDiv).classList.add("text-success");
+    }  
+}
+
+//Verficar igualdad
+function verificar() {
+    let clave1 = document.getElementById("clave");
+    let clave2 = document.getElementById("confirmar");
+
+    let flag = true;
+
+    if (clave1.value.length < 8 || clave2.value.length < 8) {
+        document.getElementById("mVerificar").innerHTML = "";
+            document.getElementById("mVerificar").classList.remove("text-danger");
+            document.getElementById("mVerificar").classList.remove("text-success");
+            flag = false;
+    }
+    else{
+        if (clave1.value !== clave2.value) {
+            document.getElementById("mVerificar").innerHTML = "Las contrase&ntilde;as no coinciden";
+            document.getElementById("mVerificar").classList.remove("text-success");
+            document.getElementById("mVerificar").classList.add("text-danger");
+            flag = false;
+        }
+        else{
+            document.getElementById("mVerificar").innerHTML = "La contrase&ntilde;a es v&aacute;lida &#10003;";
+            document.getElementById("mVerificar").classList.remove("text-danger");
+            document.getElementById("mVerificar").classList.add("text-success");
+            flag = true;
+        }
+    }
+    return flag;
+}
+  
+
 //Validar números
 function valNumero(dato) {
     return /^[0-9]+$/.test(dato);
@@ -279,12 +348,13 @@ function enviarRegistro(){
         let direccion = valDireccion(document.getElementById("direccion"));
         let region = valRegion(document.getElementById("region"));
         let comuna = valComuna(document.getElementById("comuna"));
+        let verificar = valClave();
         let mensaje = "";
         let nombre = document.getElementById("nombre").value.charAt(0).toUpperCase() + document.getElementById("nombre").value.slice(1).toLowerCase();
         let paterno = document.getElementById("paterno").value.charAt(0).toUpperCase() + document.getElementById("paterno").value.slice(1).toLowerCase();
             
         document.getElementById("mensaje").classList.add("visible");
-        if(rut && dv && pnombre && aPaterno && aMaterno && cod && celular && correo && direccion && region && comuna){
+        if(rut && dv && pnombre && aPaterno && aMaterno && cod && celular && correo && direccion && region && comuna && verificar){
             //document.getElementById("formulario").submit();
             
             mensaje = "<h1>Bienvenido a TheCleta</h1><br>"+
