@@ -254,7 +254,10 @@ function validacion(objeto){
 
 // Validar contraseña y confirmación
 function valClave(objeto) {
+    //alert(document.getElementByTagName(objeto).id);
+    
     let idDiv = objeto.id.charAt(0).toUpperCase() + objeto.id.slice(1);
+    
 
     if (objeto.value.length < 8) {
         document.getElementById("m"+idDiv).innerHTML = "La contrase&ntilde;a debe tener al menos 8 caracteres";
@@ -284,6 +287,24 @@ function valClave(objeto) {
     }  
 }
 
+
+  
+
+//Validar números
+function valNumero(dato) {
+    return /^[0-9]+$/.test(dato);
+}
+
+//Validar letras
+function valLetra(dato) {
+    return /^[a-zA-Z]+$/.test(dato);
+}
+
+//Validar dv
+function valDv(dato) {
+    return /^[0-9kK]{1}$/.test(dato);
+}
+
 //Verficar igualdad
 function verificar() {
     let clave1 = document.getElementById("clave");
@@ -293,9 +314,9 @@ function verificar() {
 
     if (clave1.value.length < 8 || clave2.value.length < 8) {
         document.getElementById("mVerificar").innerHTML = "";
-            document.getElementById("mVerificar").classList.remove("text-danger");
-            document.getElementById("mVerificar").classList.remove("text-success");
-            flag = false;
+        document.getElementById("mVerificar").classList.remove("text-danger");
+        document.getElementById("mVerificar").classList.remove("text-success");
+        flag = false;
     }
     else{
         if (clave1.value !== clave2.value) {
@@ -312,22 +333,6 @@ function verificar() {
         }
     }
     return flag;
-}
-  
-
-//Validar números
-function valNumero(dato) {
-    return /^[0-9]+$/.test(dato);
-}
-
-//Validar letras
-function valLetra(dato) {
-    return /^[a-zA-Z]+$/.test(dato);
-}
-
-//Validar dv
-function valDv(dato) {
-    return /^[0-9kK]{1}$/.test(dato);
 }
 
 //Enviar registro
@@ -348,14 +353,14 @@ function enviarRegistro(){
         let direccion = valDireccion(document.getElementById("direccion"));
         let region = valRegion(document.getElementById("region"));
         let comuna = valComuna(document.getElementById("comuna"));
-        let verificar = valClave();
+        let flagVerificar;
+        flagVerificar = verificar();
         let mensaje = "";
         let nombre = document.getElementById("nombre").value.charAt(0).toUpperCase() + document.getElementById("nombre").value.slice(1).toLowerCase();
         let paterno = document.getElementById("paterno").value.charAt(0).toUpperCase() + document.getElementById("paterno").value.slice(1).toLowerCase();
             
         document.getElementById("mensaje").classList.add("visible");
-        if(rut && dv && pnombre && aPaterno && aMaterno && cod && celular && correo && direccion && region && comuna && verificar){
-            //document.getElementById("formulario").submit();
+        if(rut && dv && pnombre && aPaterno && aMaterno && cod && celular && correo && direccion && region && comuna && flagVerificar){
             
             mensaje = "<h1>Bienvenido a TheCleta</h1><br>"+
                     nombre + " " + paterno + " nos alegra que estes aqu&iacute;.<br>"+
